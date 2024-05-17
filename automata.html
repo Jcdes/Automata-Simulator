@@ -1,0 +1,1470 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Sets the character encoding for the HTML document to UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Sets the viewport to make the website responsive on mobile devices -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+     <!-- Links to the Bootstrap CSS for styling with integrity and crossorigin attributes for security -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Preconnects to Google Fonts for faster font loading -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preconnects to Google Fonts' static resources with crossorigin attribute for security -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Links to the Google Font 'Roboto'-->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Links to an external CSS file for additional custom styles -->
+    <title>AUTOMATA</title>
+    <!-- title of webpage -->
+  </head>
+  <body>
+     <!--Starts the body of the html -->
+    <div
+      class="d-flex align-items-center flex-row w-100 h-100 justify-content-center background contentParent"
+    >
+     <!-- Main container with Bootstrap classes for flexbox layout, alignment, and styling -->
+      <div
+        id="content1"
+        class="d-flex w-100 align-items-center flex-column justify-content-center p-5 h-100"
+      >
+       <!--  Nested container for the first content section with Bootstrap flexbox classes  -->
+        <div class="d-flex flex-row w-100">
+          <!-- Container for the two main sections side by side -->
+          <div
+            class="d-flex flex-column w-100 h-100 justify-content-center p-5 rounded border border-light"
+          >
+            <h1 class="xl pb-4 font-weight-bold" style="color: #b3cde0">AUTOMATA</h1>
+            <h4 style="color: #b3cde0; font-family: 'Courier New', Courier, monospace;">INPUT STRING:</h4>
+            <input class="w-75" type="text" id="inputString" />
+            <div class="pt-3">
+              <button class="btn btn-dark" style="background-color: #4CAF50; border-color: #4CAF50;"
+               onclick="validate()">
+                Validate
+              </button>
+              <!-- validate button -->
+              <button
+                id="simulateBtn"
+                class="btn btn-dark"
+                onclick="simulate()"
+              >
+                Simulate
+              </button>
+              <!-- simulate button -->
+              <button
+                class="btn btn-dark" style="background-color: #4CAF50; border-color: #4CAF50;"
+                onclick="switchRegex()"
+                id="switchBtn"
+              >
+                Switch Problem
+              </button>
+              <!-- switch button -->
+              <button onclick="clearInput()" class="btn btn-light" style="background-color: #6497b1; border-color: #6497b1;"  >
+                Clear
+              </button>
+                <!-- clear button -->
+            </div>
+            <div>
+              <h2
+                id="input-display"
+                class="mt-3 rounded highlighted center-vertical font-weight-bold text-center overflow-hidden transition-delay"
+              ></h2>
+              <!-- Placeholder for displaying input string with custom styles -->
+            </div>
+          </div>
+          <div
+            class="d-flex flex-column justify-content-center p-5 ml-5 w-100 rounded border border-light"
+          >
+          <!-- Container for the second section with flexbox, padding, border, and rounded corners -->
+            <h1 class="xl pb-3 font-weight-bold mb-0" style="color: #b3cde0;">CFG</h1>
+            <h4 class="ml-3 rounded 1 font-weight-bold pb-0" style="color: #b3cde0;" id="cfg1" >
+              S -> ABCDEFGH<br />A -> babAB | ε <br />B -> bC | aC <br />C ->
+              babD | abaD <br />D -> aDE | bDE | ε <br />E -> aaEF | bbEF | ε<br />F -> bG | aG | bbG<br />
+              G -> aGH | bGH | ε<br />H -> aa | bb
+            </h4>
+            <!--  First CFG with custom styles-->
+            <h4 class="ml-3 rounded l font-weight-bold d-none pb-0- large-text" style="color: #b3cde0;" id="cfg2">
+              S -> ABCDEFGHJ<br />
+              A -> 1AB | 0AB | ε<br />
+              B -> 11C | 00C<br />
+              C -> 00CD | 11CD | ε<br />
+              D -> 1E | 0E | 11E<br />
+              E -> 1EF | 0EF | 11EF | ε<br />
+              F -> 101G | 111G<br />
+              G -> 101GH | 111GH | ε<br />
+              H -> 1J | 0HJ | 11J<br />
+              J -> 1J | 0J | 11J | ε
+
+            </h4> <!--  Second CFG with custom styles-->
+          </div>
+        </div>
+
+        <div
+          class="d-flex mt-5 flex-column h-100 w-100 justify-content-center p-5 rounded border border-light"
+        >
+        <!-- Container for the third section with flexbox, padding, border, and rounded corners -->
+          <div class="d-flex w-100 border-bottom pb-4 mb-2">
+            <div class="d-flex flex-row pr-5">
+             <!-- Row for Regular Expression and Alphabet -->
+              <h5 class="ml-3 rounded center-vertical font-family: 'Courier New', Courier, monospace;" style="color: #b3cde0;">
+                Regular Expression:
+              </h5>
+              <p
+                class="ml-3 rounded center-vertical font-family: 'Courier New', Courier, monospace;" style="color: #b3cde0; font-size: 24px;" 
+                id="regexLabel"
+              >
+               (bab)*(b+a)(bab+aba)(a+b)*(aa+bb)*(b+a+bb)(a+b)*(aa+bb)
+              </p>
+            </div>
+
+            <div class="d-flex flex-row">
+              <h3 class="ml-3 roundedcenter-vertical; font-family: 'Courier New', Courier, monospace;" style="color: #b3cde0; font-size: 24px;">Alphabet:</h3>
+              <p
+                class="ml-3 roundedcenter-vertical; font-family: 'Courier New', Courier, monospace;" style="color: #b3cde0; font-size: 20px;"
+                id="languageLabel"
+              >
+                [a,b]
+              </p>
+            </div>
+          </div>
+          <div
+            class="d-flex flex-row align-items-center w-100 h-100 diagram justify-content-center"
+          >
+            <svg
+              width="100%"
+              height="40vh"
+              viewBox="0 0 780 360"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w2.org/2000/svg"
+            >
+            <!-- svg CONTAINER with responsive setting-->
+              <defs>
+                <marker
+                  id="arrow"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="21"
+                  refY="3"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L0,6 L9,3 z" class="arrow" />
+                </marker>
+                <!--Arrow marker definition-->
+                <marker
+                  id="arrow2"
+                  markerWidth="20"
+                  markerHeight="20"
+                  refX="8.5"
+                  refY="3.5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L0,6 L9,3 z" class="arrow" />
+                </marker>
+                <!--larger arrow marker definition-->
+                <marker
+                  id="arrow3"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="9"
+                  refY="3"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L0,6 L9,3 z" class="arrow" />
+                </marker>
+                 <!--smaller arrow marker definition-->
+                <marker
+                  id="arrowBlue"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="21"
+                  refY="3"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L0,6 L9,3 z" class="transition-delay blue" />
+                </marker>
+                <!--blue arrow marker definition-->
+                <marker
+                  id="arrowBlue2"
+                  markerWidth="20"
+                  markerHeight="20"
+                  refX="8.5"
+                  refY="3.5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L0,6 L9,3 z" class="transition-delay blue" />
+                </marker>
+                <!--larger arrow marker definition-->
+              </defs>
+
+              <!-- REGEX DIAGRAM 1 -->
+              <g id="regexDiagram1">
+                <!-- container for the first regex diagram -->
+                <g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <line
+                    id="x0x11"
+                    x1="30"
+                    y1="65%"
+                    x2="180"
+                    y2="50%"
+                    class="line transition-delay"
+                  />
+                  <text
+                    class="line-text"
+                    x="100"
+                    y="55%"
+                    alignment-baseline="middle"
+                  >
+                    a
+                  </text>
+                </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                <g>
+                  <line
+                    id="x11x10"
+                    x1="200"
+                    y1="45%"
+                    x2="250"
+                    y2="30%"
+                    class="line transition-delay"
+                  />
+                  <text
+                    class="line-text"
+                    x="210"
+                    y="40%"
+                    alignment-baseline="middle"
+                  >
+                    b
+                  </text>
+                </g>
+                   <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x10x3"
+                      x1="250"
+                      y1="30%"
+                      x2="340"
+                      y2="30%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="290"
+                      y="25%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                    <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x3x15"
+                      x1="360"
+                      y1="30%"
+                      x2="500"
+                      y2="30%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="390"
+                      y="25%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                    <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x3x1"
+                      x1="360"
+                      y1="30%"
+                      x2="500"
+                      y2="70%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="420"
+                      y="42%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                    <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <path
+                      id="x10x15"
+                      d="M 225 110 A 250 240 0 0 1 480 90"
+                      class="line-curved transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="350"
+                      y="15%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                   <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <path
+                      id="x4x5"
+                      d="M 620 270 A 250 240 0 0 0 790 190"
+                      class="line-curved transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="720"
+                      y="75%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                    <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <path
+                      id="x5x6"
+                      d="M 790 150 A 250 340 0 0 0 620 70"
+                      class="line-curved transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="720"
+                      y="20%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                 <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x11x9"
+                      x1="170"
+                      y1="50%"
+                      x2="270"
+                      y2="50%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="220"
+                      y="45%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                    <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x9x15"
+                      x1="290"
+                      y1="50%"
+                      x2="500"
+                      y2="30%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="310"
+                      y="45%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                    <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x2x15"
+                      x1="380"
+                      y1="60%"
+                      x2="500"
+                      y2="30%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="400"
+                      y="50%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x9x2"
+                      x1="270"
+                      y1="50%"
+                      x2="390"
+                      y2="60%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="330"
+                      y="57%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x2x1"
+                      x1="400"
+                      y1="60%"
+                      x2="490"
+                      y2="70%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="430"
+                      y="60%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                   <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x1x4"
+                      x1="470"
+                      y1="70%"
+                      x2="600"
+                      y2="70%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="540"
+                      y="65%"
+                      alignment-baseline="middle"
+                    >
+                      b,a
+                    </text>
+                  </g>
+                   <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x4x7"
+                      x1="590"
+                      y1="70%"
+                      x2="620"
+                      y2="40%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="590"
+                      y="55%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                   <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x8x5"
+                      x1="700"
+                      y1="60%"
+                      x2="800"
+                      y2="48%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="740"
+                      y="58%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                    <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x7x5"
+                      x1="610"
+                      y1="40%"
+                      x2="805"
+                      y2="40%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="690"
+                      y="38%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x5x7"
+                      x1="790"
+                      y1="45%"
+                      x2="630"
+                      y2="45%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="740"
+                      y="43%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x6x7"
+                      x1="590"
+                      y1="20%"
+                      x2="620"
+                      y2="45%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="590"
+                      y="33%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x7x8"
+                      x1="610"
+                      y1="40%"
+                      x2="690"
+                      y2="65%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="645"
+                      y="55%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <path
+                      id="x8x8"
+                      d="M 710 200 l 10 -10 A 1 1 0 0 0 700 175 l -15 15"
+                      class="line-curved transition-delay"
+                    />
+  
+                    <text
+                      class="line-text"
+                      x="730"
+                      y="50%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <path
+                      id="x15x15"
+                      d="M 520 120 l 10 -10 A 1 1 0 0 0 520 70 l -15 15"
+                      class="line-curved transition-delay"
+                    />
+  
+                    <text
+                      class="line-text"
+                      x="530"
+                      y="15%
+                      alignment-baseline="middle"
+                    >
+                      b,a
+                    </text>
+                  </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <path
+                      id="x6x6"
+                      d="M 620 70 l 10 -10 A 1 1 0 0 0 620 30 l -15 15"
+                      class="line-curved transition-delay"
+                    />
+  
+                    <text
+                      class="line-text"
+                      x="650"
+                      y="10%
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                  
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x14x1"
+                      x1="300"
+                      y1="100%"
+                      x2="490"
+                      y2="70%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="380"
+                      y="85%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                   <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <path
+                    id="x13x15"
+                    d="M 260 270 A 250 240 0 0 0 520 130"
+                    class="line-curved transition-delay"
+                
+                    />
+                    <text
+                      class="line-text"
+                      x="350"
+                      y="70%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                   <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x12x13"
+                      x1="170"
+                      y1="70%"
+                      x2="270"
+                      y2="70%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="230"
+                      y="75%"
+                      alignment-baseline="middle"
+                    >
+                      a
+                    </text>
+                  </g>
+                    <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x13x14"
+                      x1="270"
+                      y1="70%"
+                      x2="300"
+                      y2="95%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="300"
+                      y="80%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                   <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="x14x12"
+                      x1="280"
+                      y1="90%"
+                      x2="180"
+                      y2="75%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="250"
+                      y="90%"
+                      alignment-baseline="middle"
+                    >
+                      b
+                    </text>
+                  </g>
+                
+                 <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                <g>
+                  <line
+                    id="x0x12"
+                    x1="50"
+                    y1="65%"
+                    x2="190"
+                    y2="70%"
+                    class="line transition-delay"
+                  />
+                  <text
+                    class="line-text"
+                    x="120"
+                    y="70%"
+                    alignment-baseline="middle"
+                  >
+                    b
+                  </text>
+                </g>
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                <g>
+                  <line
+                    id="x12x10"
+                    x1="200"
+                    y1="65%"
+                    x2="250"
+                    y2="30%"
+                    class="line transition-delay"
+                  />
+                  <text
+                    class="line-text"
+                    x="220"
+                    y="60%"
+                    alignment-baseline="middle"
+                  >
+                    b
+                  </text>
+                </g>
+               
+          
+                <!-- starting point circle-->
+                <g id="x0" class="hover">
+                  <circle r="25" cx="50" cy="65%" />
+                  <text
+                    x="50"
+                    y="65%"
+                    dy=".3em"
+                    dx="-0.01em"
+                    style="font-size: 1.5rem; font-weight: 700"
+                  >
+                    -
+                  </text>
+                </g>
+                
+                <!-- a circle -->
+                <g id="x11" class="hover">
+                  <circle r="25" cx="180" cy="50%" />
+                  <text x="180" y="50%" dy=".25em" dx="-.1em">1</text>
+                </g>
+                <!-- a2 circle -->
+                <g id="x9" class="hover">
+                  <circle r="25" cx="270" cy="50%" />
+                  <text x="270" y="50%" dy=".25em" dx="-.1em">2</text>
+                </g>
+                 <!-- b5 circle -->
+                 <g id="x2" class="hover">
+                  <circle r="25" cx="390" cy="60%" />
+                  <text x="390" y="60%" dy=".25em" dx="-.1em">3</text>
+                </g>
+                <!-- a3 circle -->
+                <g id="x10" class="hover">
+                  <circle r="25" cx="250" cy="30%" />
+                  <text x="250" y="30%" dy=".25em" dx="-.1em">4</text>
+                
+              </g>
+                <!-- b4 circle -->
+                <g id="x3" class="hover">
+                  <circle r="25" cx="340" cy="30%" />
+                  <text x="340" y="30%" dy=".25em" dx="-.1em">5</text>
+                </g>
+              
+              <!-- a4 circle -->
+              <g id="x15" class="hover">
+                <circle r="25" cx="500" cy="30%" />
+                <text x="500" y="30%" dy=".25em" dx="-.1em">6</text>
+              </g>
+                <!-- b circle -->
+                <g id="x12" class="hover">
+                  <circle r="25" cx="190" cy="70%" />
+                  <text x="190" y="70%" dy=".25em" dx="-.1em">7</text>
+                </g>
+                <!-- b2 circle -->
+                <g id="x13" class="hover">
+                  <circle r="25" cx="270" cy="70%" />
+                  <text x="270" y="70%" dy=".25em" dx="-.1em">8</text>
+                </g>
+                 <!-- b3 circle -->
+                 <g id="x14" class="hover">
+                  <circle r="25" cx="295" cy="95%" />
+                  <text x="295" y="95%" dy=".25em" dx="-.1em">9</text>
+                </g>
+                <!-- b6 circle -->
+                <g id="x1" class="hover">
+                  <circle r="25" cx="490" cy="70%" />
+                  <text x="490" y="70%" dy=".25em" dx="-.1em">10</text>
+                </g>
+                <!-- b7 circle -->
+                <g id="x4" class="hover">
+                  <circle r="25" cx="600" cy="70%" />
+                  <text x="600" y="70%" dy=".25em" dx="-.1em">11</text>
+                </g>
+                  <!-- b8 circle -->
+                  <g id="x7" class="hover">
+                    <circle r="25" cx="630" cy="43%" />
+                    <text x="630" y="43%" dy=".25em" dx="-.1em">12</text>
+                  </g>
+                   <!-- b9 circle -->
+                   <g id="x5" class="hover">
+                    <circle r="25" cx="800" cy="46%" />
+                    <text x="800" y="46%" dy=".25em" dx="-.1em">13</text>
+                  </g>
+                
+                
+                 <!-- End point circle-->
+                  <g id="x8" class="hover">
+                    <circle r="25" cx="700" cy="60%" />
+                    <text
+                      x="700"
+                      y="60%"
+                      dy=".3em"
+                      dx="-0.01em"
+                      style="font-size: 1.5rem; font-weight: 00"
+                    >
+                      +
+                    </text>
+
+                  </g>
+                  <!-- End point circle-->
+                  <g id="x6" class="hover">
+                    <circle r="25" cx="600" cy="20%" />
+                    <text
+                      x="600"
+                      y="20%"
+                      dy=".3em"
+                      dx="-0.01em"
+                      style="font-size: 1.5rem; font-weight: 00"
+                    >
+                    +
+                  </text>
+                </g>
+              </g>
+          
+      
+              
+                 <!-- PROBLEM DIAGRAM 2-->
+              
+              <g id="regexDiagram2" class="d-none">
+                <!-- diagram for regex number 2 -->
+               
+                  <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w0w1"
+                      x1="50"
+                      y1="50%"
+                      x2="160"
+                      y2="40%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="88"
+                      y="40%"
+                      alignment-baseline="middle"
+                    >
+                      0
+                    </text>
+                  </g>
+                <!-- x1= back of arrow head-->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w0w8"
+                      x1="50"
+                      y1="55%"
+                      x2="160"
+                      y2="70%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="88"
+                      y="66%"
+                      alignment-baseline="middle"
+                    >
+                      1
+                    </text>
+                  </g>
+                    <!-- x8->x1 circle -->
+                  <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w8w1"
+                      x1="150"
+                      y1="70%"
+                      x2="150"
+                      y2="40%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="140"
+                      y="55%"
+                      alignment-baseline="middle"
+                    >
+                      0
+                    </text>
+                  </g>
+                    <!-- x1->x8 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w1w8"
+                      x1="170"
+                      y1="40%"
+                      x2="170"
+                      y2="70%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="180"
+                      y="55%"
+                      alignment-baseline="middle"
+                    >
+                      1
+                    </text>
+                  </g>
+                   <!-- x1->x2 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w1w2"
+                      x1="180"
+                      y1="45%"
+                      x2="240"
+                      y2="55%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="200"
+                      y="40%"
+                      alignment-baseline="middle"
+                    >
+                      0
+                    </text>
+                  </g>
+                  
+                   <!-- x8->x2 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w8w2"
+                      x1="170"
+                      y1="70%"
+                      x2="250"
+                      y2="58%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="200"
+                      y="75%"
+                      alignment-baseline="middle"
+                    >
+                      1
+                    </text>
+                  </g>
+                   <!-- x2->x3 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w2w3"
+                      x1="220"
+                      y1="55%"
+                      x2="350"
+                      y2="55%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="290"
+                      y="50%"
+                      alignment-baseline="middle"
+                    >
+                      1,0 
+                    </text>
+                  </g>
+                   <!-- x2->x3 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w2w3"
+                      x1="220"
+                      y1="55%"
+                      x2="350"
+                      y2="55%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="290"
+                      y="50%"
+                      alignment-baseline="middle"
+                    >
+                      1,0 
+                    </text>
+                  </g>
+                   <!-- x5->x3 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w5w3"
+                      x1="340"
+                      y1="30%"
+                      x2="350"
+                      y2="55%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="330"
+                      y="40%"
+                      alignment-baseline="middle"
+                    >
+                      0 
+                    </text>
+                  </g>
+                   <!-- x7->x5 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w7w5"
+                      x1="410"
+                      y1="10%"
+                      x2="360"
+                      y2="30%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="380"
+                      y="15%"
+                      alignment-baseline="middle"
+                    >
+                      0 
+                    </text>
+                  </g>
+                  <g>
+                     <!-- x3->x3 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                    <path
+                      id="w3w3"
+                      d="M 370 200 l 10 -10 A 1 1 0 0 0 370 160 l -15 15"
+                      class="line-curved transition-delay"
+                    />
+  
+                    <text
+                      class="line-text"
+                      x="390"
+                      y="43%"
+                      alignment-baseline="middle"
+                    >
+                      0
+                    </text>
+                  </g>
+                  <g>
+                    <!-- x6->x6 circle -->
+                  <!-- y1= back of arrow head-->
+                 <!--x2= arrow head-->
+                 <!--y2= arrow head-->
+                   <path
+                     id="w6w6"
+                     d="M 500 110 l 10 -10 A 1 1 0 0 0 500 60 l -15 15"
+                     class="line-curved transition-delay"
+                   />
+ 
+                   <text
+                     class="line-text"
+                     x="515"
+                     y="15%"
+                     alignment-baseline="middle"
+                   >
+                     1,0
+                   </text>
+                 </g>
+                 <g>
+                  <!-- x4->x7 circle -->
+                  <!-- y1= back of arrow head-->
+                 <!--x2= arrow head-->
+                 <!--y2= arrow head-->
+                 <path
+                 id="w4w7"
+                 d="M 460 190 l 10 -10 A 1 1 0 0 0 460 10 l -15 15"
+                 class="line-curved transition-delay"
+               />
+
+               <text
+                 class="line-text"
+                 x="560"
+                 y="15%"
+                 alignment-baseline="middle"
+               >
+                 1
+               </text>
+             </g>
+                  <!-- x3->x4 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w3w4"
+                      x1="370"
+                      y1="55%"
+                      x2="480"
+                      y2="55%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="420"
+                      y="50%"
+                      alignment-baseline="middle"
+                    >
+                      1 
+                    </text>
+                  </g>
+                  <!-- x5->x6 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w5w6"
+                      x1="360"
+                      y1="30%"
+                      x2="490"
+                      y2="30%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="420"
+                      y="25%"
+                      alignment-baseline="middle"
+                    >
+                      1 
+                    </text>
+                  </g>
+                  <!-- x7->x6 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w7w6"
+                      x1="400"
+                      y1="10%"
+                      x2="490"
+                      y2="30%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="450"
+                      y="15%"
+                      alignment-baseline="middle"
+                    >
+                      1 
+                    </text>
+                  </g>
+                  <g>
+                    <!-- x4->x5 circle -->
+                   <!-- y1= back of arrow head-->
+                  <!--x2= arrow head-->
+                  <!--y2= arrow head-->
+                  <g>
+                    <line
+                      id="w4w5"
+                      x1="460"
+                      y1="50%"
+                      x2="360"
+                      y2="25%"
+                      class="line transition-delay"
+                    />
+                    <text
+                      class="line-text"
+                      x="430"
+                      y="40%"
+                      alignment-baseline="middle"
+                    >
+                      0 
+                    </text>
+                  </g>
+                  <g>
+               
+               
+               
+               
+                 <!-- CIRCLES -->
+                <!-- x0 circle -->
+                <g id="w0" class="hover">
+                  <circle r="25" cx="50" cy="50%" />
+                  <text
+                    x="50"
+                    y="50%"
+                    dy=".35em"
+                    dx="-0.01em"
+                    style="font-size: 1.5rem; font-weight: 700"
+                  >
+                    -
+                  </text>
+                </g>
+               <!-- x1 circle -->
+                <g id="w1" class="hover">
+                  <circle r="25" cx="160" cy="40%" />
+                  <text x="160" y="40%" dy=".25em" dx="-.1em">1</text>
+                </g>
+                 <!-- x8 circle -->
+                 <g id="w8" class="hover">
+                  <circle r="25" cx="160" cy="70%" />
+                  <text x="160" y="70%" dy=".25em" dx="-.1em">8</text>
+                </g>
+                <!-- x2 circle -->
+                <g id="w2" class="hover">
+                  <circle r="25" cx="240" cy="55%" />
+                  <text x="240" y="55%" dy=".25em" dx="-.1em">2</text>
+                </g>
+                <!-- x3 circle -->
+                <g id="w3" class="hover">
+                  <circle r="25" cx="350" cy="55%" />
+                  <text x="350" y="55%" dy=".25em" dx="-.1em">3</text>
+                </g>
+                 <!-- x4 circle -->
+                 <g id="w4" class="hover">
+                  <circle r="25" cx="480" cy="55%" />
+                  <text x="480" y="55%" dy=".25em" dx="-.1em">4</text>
+                </g>
+                 <!-- x5 circle -->
+                 <g id="w5" class="hover">
+                  <circle r="25" cx="350" cy="28%" />
+                  <text x="350" y="28%" dy=".25em" dx="-.1em">5</text>
+                </g>
+                 <!-- x7 circle -->
+                 <g id="w7" class="hover">
+                  <circle r="25" cx="420" cy="10%" />
+                  <text x="420" y="10%" dy=".25em" dx="-.1em">7</text>
+                </g>
+                <!-- x6 circle -->
+                <g id="w6" class="hover">
+                  <circle r="25" cx="490" cy="30%" />
+                  <text
+                  x="490"
+                  y="30%"
+                  dy=".35em"
+                  dx="-0.01em"
+                  style="font-size: 1.5rem; font-weight: 700"
+                >
+                  +
+                </text>
+              </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div></div>
+            <div
+            id="content2"
+            class="d-flex h-100 p-5 align-items-center flex-column justify-content-center"
+        >
+        <!-- Container for the second content section with flexbox, padding, and alignment --> 
+            <div
+                id="content2-bottom"
+                class="h-100 w-100 p-5 rounded border border-light d-flex flex-column"
+                style="justify-content: flex-end; height: 300px;" 
+            >
+            <!-- Bottom container with flexbox, padding, border, and height adjustment --> 
+                <h1 class="xl pb-3 font-weight-bold mb-0" style="color: #b3cde0;">PDA</h1>
+                <div
+                    class="d-flex flex-row align-items-center w-100 h-100 diagram justify-content-center"
+                    id="pdaDiagramContainer"
+                    style="flex-grow: 1;"
+                >
+                  <!-- SVG container for PDA diagram with responsive settings -->
+                    <svg
+                        id="pdaDiagramsvg"
+                        width="100%"
+                        viewBox="25 25 360 400"
+                        preserveAspectRatio="xMidYMid meet"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                  
+                        <g id="pdaDiagram1">
+                          <image href="C:\Users\WINDOWS 10\Documents\python folder\automataa\pda2.png "x="10" y="10" width="400" height="400"   />
+                        </g>
+                        <!-- first pda diagram -->
+                        <g id="pdaDiagram2" class="d-none">
+                          <image href="C:\Users\WINDOWS 10\Documents\python folder\automataa\pda1.png "x="10" y="10" width="400" height="400"   />
+                        </g>
+                     <!-- second pda diagram -->
+                    </svg>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+  <!--Links to an external JavaScript file for additional functionality-->
+</html>

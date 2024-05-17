@@ -1,0 +1,258 @@
+body {
+  background-color: #011f4b; /* Lighter shade of blue */
+  font-family: "Poppins", sans-serif; /* Sets the font family to Poppins */
+  max-width: 100vw; /* Limits the max width of the body */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+.highlighted {
+  border-color: #BBDEFB !important; /* Softer blue for borders */
+  background-color: #BBDEFB !important; /* Matching background color */
+  padding: 4px; /* Adds padding around highlighted elements */
+  font-size: 1.2rem !important; /* Increases font size */
+}
+
+.big {
+  color: #0062ff !important; /* Blue color */
+  font-size: 2rem !important; /* Large font size */
+}
+
+.center-vertical {
+  margin-top: auto; /* Centers element vertically */
+  margin-bottom: auto; /* Centers element vertically */
+}
+
+.bg-light {
+  background-color: linear-gradient(to right, #E3F2FD, #BBDEFB) !important; /* Gradient background from light to lighter blue */
+}
+
+.diagram {
+  width: 100%; /* Full width for diagrams */
+  height: 100%; /* Full height for diagrams */
+}
+
+.hover {
+  transition: all 0.15s ease-in; /* Smooth transition for hover effects */
+  transform-origin: center; /* Sets transform origin to center */
+  transform-box: fill-box; /* Transform affects entire element box */
+}
+
+.hover:hover {
+  transform: scale(1.2); /* Scales up element on hover */
+}
+
+.hovered {
+  transform: scale(1.2); /* Scales up hovered element */
+}
+
+.hovered > circle {
+  fill: #0062ff !important; /* Fills circle with blue color */
+}
+
+.hovered > rect {
+  fill: #0062ff !important; /* Fills rectangle with blue color */
+}
+
+.hovered > text {
+  stroke: white !important; /* Sets text stroke to white */
+  fill: white !important; /* Sets text fill to white */
+}
+
+.transition-delay {
+  transition: all 0.15s ease-in !important; /* Smooth transition with delay */
+}
+
+.transition {
+  stroke: #0062ff !important; /* Blue stroke for transition lines */
+  marker-end: url(#arrowBlue) !important; /* Ends transition with blue arrow */
+  z-index: 99999; /* Brings transition to the front */
+}
+
+line.transition {
+  stroke: #0062ff !important; /* Blue stroke for transition lines */
+  stroke-width: 2.6 !important; /* Sets stroke width */
+}
+
+path.transition {
+  stroke-width: 2.6 !important; /* Sets stroke width */
+}
+
+.blue {
+  fill: #0062ff !important; /* Blue fill for elements */
+  color: #0062ff !important; /* Blue color for elements */
+}
+
+.red {
+  fill: #ff1100 !important; /* Red fill for elements */
+  color: #ff1100 !important; /* Red color for elements */
+}
+
+.border-light {
+  border: 2px solid #dee2e6 !important; /* Light border for elements */
+}
+
+input[type="text"] {
+  border-style: solid !important; /* Solid border for text inputs */
+  border-color: #dee2e6 !important; /* Light border color */
+  border-radius: 10px; /* Rounded corners */
+  height: 35px; /* Fixed height for input */
+}
+
+.line {
+  stroke: #FFFFFF; /* White stroke for lines */
+  stroke-width: 2; /* Sets stroke width */
+  marker-end: url(#arrow); /* Ends line with arrow marker */
+}
+
+.line-curved {
+  stroke: #FFFFFF; /* White stroke for curved lines */
+  stroke-width: 2; /* Sets stroke width */
+  marker-end: url(#arrow2) !important; /* Ends line with larger arrow marker */
+  fill: none; /* No fill for curved lines */
+}
+
+.arrow {
+  fill: #FFFFFF; /* White fill for arrows */
+}
+
+.line-text {
+  fill: #FFFFFF !important; /* White fill for line text */
+  font-weight: bold; /* Bold font weight for line text */
+}
+
+text {
+  pointer-events: none; /* Disables pointer events for text */
+  user-select: none; /* Prevents text selection */
+  text-anchor: middle; /* Centers text */
+  fill: black; /* Black fill for text */
+  font-size: 15; /* Sets font size */
+}
+
+circle {
+  stroke: #6497b1; /* Light blue stroke for circles */
+  stroke-width: 2; /* Sets stroke width */
+  fill: rgb(248, 254, 255); /* Light fill color */
+}
+
+.contentParent {
+  height: 120vh !important; /* Sets height */
+  max-width: 100vw; /* Limits max width */
+  flex-wrap: wrap; /* Wraps flex items */
+}
+
+rect {
+  stroke: #0062ff; /* Blue stroke for rectangles */
+  stroke-width: 3; /* Sets stroke width */
+  fill: rgb(248, 254, 255); /* Light fill color */
+  transform-origin: center; /* Sets transform origin to center */
+  transform-box: fill-box; /* Transform affects entire box */
+  transform: rotate(45deg); /* Rotates rectangle */
+}
+
+.box-text {
+  font-size: 0.8rem; /* Sets font size */
+  transform-origin: center; /* Sets transform origin to center */
+  transform-box: fill-box; /* Transform affects entire box */
+}
+
+@media (max-width: 1366px) {
+  .contentParent {
+    flex-direction: column !important; /* Stacks items vertically */
+    height: auto !important; /* Sets auto height */
+  }
+
+  #content1 {
+    flex: 1; /* Sets flex grow */
+    height: auto; /* Sets auto height */
+  }
+
+  #content2 {
+    flex: 1; /* Sets flex grow */
+  }
+
+  #content1, #content2 {
+    background-color: #E1F5FE; /* Very light blue background color */
+  }
+
+  #pdaDiagramsvg {
+    height: 100vh !important; /* Full viewport height for SVG */
+    transform: scale(1.3); /* Scales up SVG */
+    margin-top: 200px; /* Sets top margin */
+  }
+
+  /* #pdaDiagramContainer {
+    height: 100vh !important; /* Full viewport height for container */
+  /* } */
+
+  rect {
+    stroke: #0062ff; /* Blue stroke for rectangles */
+    stroke-width: 3; /* Sets stroke width */
+    fill: rgb(248, 254, 255); /* Light fill color */
+    transform-origin: center; /* Sets transform origin to center */
+    transform-box: fill-box; /* Transform affects entire box */
+    transform: rotate(45deg); /* Rotates rectangle */
+  }
+}
+
+@media (min-width: 1920px) {
+  #content2 {
+    padding-left: 0 !important; /* Removes left padding */
+  }
+
+  #pdaDiagramsvg {
+    height: 100%; /* Full height for SVG */
+    transform: scale(1.3); /* Scales up SVG */
+    margin-top: 300px; /* Sets top margin */
+  }
+}
+
+#content1 {
+  flex: 2; /* Sets flex grow */
+  height: 100% !important; /* Full height */
+}
+
+#content2 {
+  flex: 1; /* Sets flex grow */
+  width: 100% !important; /* Full width */
+}
+
+#content2-bottom {
+  flex: 2; /* Sets flex grow */
+}
+
+#pdaDiagramsvg {
+  height: 100%; /* Full height for SVG */
+}
+
+.xl {
+  font-size: 3vh; /* Responsive font size */
+}
+
+.l {
+  font-size: 1.9vh; /* Responsive font size */
+}
+
+#input-display {
+  min-height: 3rem; /* Minimum height */
+  max-width: 40vw; /* Maximum width */
+  padding-left: 1rem; /* Left padding */
+  padding-right: 1rem; /* Right padding */
+  display: flex; /* Flexbox display */
+  justify-content: center; /* Centers items horizontally */
+  align-items: center; /* Centers items vertically */
+  letter-spacing: 1.2px; /* Sets letter spacing */
+}
+
+.invalid {
+  color: red; /* Red color for invalid text */
+  font-weight: bold; /* Bold font weight */
+}
+
+.valid {
+  color: green; /* Green color for valid text */
+  font-weight: bold; /* Bold font weight */
+}
+
+.large-text {
+  font-size: 23px; /* Large font size */
+}
