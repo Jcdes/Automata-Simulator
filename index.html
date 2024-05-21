@@ -24,7 +24,7 @@
     <!-- Links to the Google Font 'Roboto'-->
     <link rel="stylesheet" href="styles.css" />
     <!-- Links to an external CSS file for additional custom styles -->
-    <title>AUTOMATA</title>
+    <title>AUTOMATA SIMULATOR</title>
     <!-- title of webpage -->
   </head>
   <body>
@@ -40,59 +40,50 @@
        <!--  Nested container for the first content section with Bootstrap flexbox classes  -->
         <div class="d-flex flex-row w-100">
           <!-- Container for the two main sections side by side -->
-          <div
-            class="d-flex flex-column w-100 h-100 justify-content-center p-5 rounded border border-light"
-          >
-            <h1 class="xl pb-4 font-weight-bold" style="color: #b3cde0">AUTOMATA</h1>
-            <h4 style="color: #b3cde0; font-family: 'Courier New', Courier, monospace;">INPUT STRING:</h4>
+          <div class="d-flex pt-3 pb-5 px-5 flex-column h-100 w-100 justify-content-start p-5 rounded border border-light">
+            <div class="d-flex justify-content-between w-100">
+              <h1 class="xl pb-4 font-weight-bold" style="color: #b3cde0">SIMULATOR</h1>
+              <div class="d-flex align-items-start">
+                <button class="btn btn-dark mb-2 ml-2 font-weight-bold" style="background-color: #4CAF50; border-color: #4CAF50;" onclick="validate()">
+                  VALIDATE
+                </button>
+                <button id="simulateBtn" class="btn btn-dark mb-2 ml-2 font-weight-bold" onclick="simulate()">
+                  SIMULATE
+                </button>
+                <button onclick="clearInput()" class="btn btn-light mb-2 ml-2 font-weight-bold" style="background-color: #6497b1; border-color: #6497b1;">
+                  CLEAR
+                </button>
+                <button class="btn btn-dark mb-2 ml-2 font-weight-bold" style="background-color: #4CAF50; border-color: #4CAF50;" onclick="switchRegex()" id="switchBtn">
+                  SWITCH
+                </button>
+              </div>
+            </div>
+            <h4 style="color: #b3cde0; font-family: 'Courier New', Courier, monospace;">TYPE HERE:</h4>
             <input class="w-75" type="text" id="inputString" />
-            <div class="pt-3">
-              <button class="btn btn-dark" style="background-color: #4CAF50; border-color: #4CAF50;"
-               onclick="validate()">
-                Validate
-              </button>
-              <!-- validate button -->
-              <button
-                id="simulateBtn"
-                class="btn btn-dark"
-                onclick="simulate()"
-              >
-                Simulate
-              </button>
-              <!-- simulate button -->
-              <button
-                class="btn btn-dark" style="background-color: #4CAF50; border-color: #4CAF50;"
-                onclick="switchRegex()"
-                id="switchBtn"
-              >
-                Switch Problem
-              </button>
-              <!-- switch button -->
-              <button onclick="clearInput()" class="btn btn-light" style="background-color: #6497b1; border-color: #6497b1;"  >
-                Clear
-              </button>
-                <!-- clear button -->
-            </div>
             <div>
-              <h2
-                id="input-display"
-                class="mt-3 rounded highlighted center-vertical font-weight-bold text-center overflow-hidden transition-delay"
-              ></h2>
+              <h2 id="input-display" class="mt-3 rounded highlighted center-vertical font-weight-bold text-center overflow-hidden transition-delay">
+              </h2>
               <!-- Placeholder for displaying input string with custom styles -->
-            </div>
-          </div>
-          <div
-            class="d-flex flex-column justify-content-center p-5 ml-5 w-100 rounded border border-light"
-          >
-          <!-- Container for the second section with flexbox, padding, border, and rounded corners -->
+            </div>       
+            <br>
+          <div class="d-flex flex-column justify-content-center p-5 w-100 rounded border border-light ml-0">
+            <!-- Container for the second section with flexbox, padding, border, and rounded corners -->
             <h1 class="xl pb-3 font-weight-bold mb-0" style="color: #b3cde0;">CFG</h1>
-            <h4 class="ml-3 rounded 1 font-weight-bold pb-0" style="color: #b3cde0;" id="cfg1" >
-              S -> ABCDEFGH<br />A -> babAB | ε <br />B -> bC | aC <br />C ->
-              babD | abaD <br />D -> aDE | bDE | ε <br />E -> aaEF | bbEF | ε<br />F -> bG | aG | bbG<br />
-              G -> aGH | bGH | ε<br />H -> aa | bb
+            <h4 class="ml-3 rounded 1 font-weight-bold pb-0" style="color: #b3cde0;" id="cfg1">
+              S -> ABCDEFGH<br />
+              A -> babAB | ε 
+              <br />B -> bC | aC 
+              <br />C ->
+              babD | abaD 
+              <br />D -> aDE | bDE | ε 
+              <br />E -> aaEF | bbEF | ε
+              <br />F -> bG | aG | bbG
+              <br />
+              G -> aGH | bGH | ε
+              <br />H -> aa | bb
             </h4>
-            <!--  First CFG with custom styles-->
-            <h4 class="ml-3 rounded l font-weight-bold d-none pb-0- large-text" style="color: #b3cde0;" id="cfg2">
+            <!-- First CFG with custom styles -->
+            <h4 class="ml-3 rounded l font-weight-bold d-none pb-0 large-text" style="color: #b3cde0;" id="cfg2">
               S -> ABCDEFGHJ<br />
               A -> 1AB | 0AB | ε<br />
               B -> 11C | 00C<br />
@@ -103,49 +94,48 @@
               G -> 101GH | 111GH | ε<br />
               H -> 1J | 0HJ | 11J<br />
               J -> 1J | 0J | 11J | ε
-
-            </h4> <!--  Second CFG with custom styles-->
+            </h4>
+            <!-- Second CFG with custom styles -->
           </div>
         </div>
-
         <div
-          class="d-flex mt-5 flex-column h-100 w-100 justify-content-center p-5 rounded border border-light"
-        >
-        <!-- Container for the third section with flexbox, padding, border, and rounded corners -->
-          <div class="d-flex w-100 border-bottom pb-4 mb-2">
-            <div class="d-flex flex-row pr-5">
-             <!-- Row for Regular Expression and Alphabet -->
-              <h5 class="ml-3 rounded center-vertical font-family: 'Courier New', Courier, monospace;" style="color: #b3cde0;">
-                Regular Expression:
-              </h5>
-              <p
-                class="ml-3 rounded center-vertical font-family: 'Courier New', Courier, monospace;" style="color: #b3cde0; font-size: 24px;" 
-                id="regexLabel"
-              >
-               (bab)*(b+a)(bab+aba)(a+b)*(aa+bb)*(b+a+bb)(a+b)*(aa+bb)
-              </p>
-            </div>
-
-            <div class="d-flex flex-row">
-              <h3 class="ml-3 roundedcenter-vertical; font-family: 'Courier New', Courier, monospace;" style="color: #b3cde0; font-size: 24px;">Alphabet:</h3>
-              <p
-                class="ml-3 roundedcenter-vertical; font-family: 'Courier New', Courier, monospace;" style="color: #b3cde0; font-size: 20px;"
-                id="languageLabel"
-              >
-                [a,b]
-              </p>
-            </div>
-          </div>
-          <div
-            class="d-flex flex-row align-items-center w-100 h-100 diagram justify-content-center"
+            class="d-flex pt-3 pb-5 px-5 flex-column h-100 w-100 justify-content-start p-5 rounded border border-light"
           >
-            <svg
-              width="100%"
-              height="40vh"
-              viewBox="0 0 780 360"
-              preserveAspectRatio="xMidYMid meet"
-              xmlns="http://www.w2.org/2000/svg"
+            <!-- Container for the third section with flexbox, padding, border, and rounded corners -->
+            <div class="d-flex w-100 border-bottom pb-4 mb-2">
+              <div class="d-flex flex-column pr-5">
+                <!-- Column for Regular Expression and Alphabet -->
+                <h5 class="ml-3 rounded center-vertical" style="color: #b3cde0; font-family: 'Courier New', Courier, monospace;">
+                  Regular Expression:
+                </h5>
+                <p
+                  class="ml-3 rounded center-vertical" style="color: #b3cde0; font-family: 'Courier New', Courier, monospace; font-size: 24px;"
+                  id="regexLabel"
+                >
+                  (bab)*(b+a)(bab+aba)(a+b)*(aa+bb)*(b+a+bb)(a+b)*(aa+bb)
+                </p>
+              </div>
+
+              <div class="d-flex flex-column">
+                <h3 class="ml-3 rounded center-vertical" style="color: #b3cde0; font-family: 'Courier New', Courier, monospace; font-size: 24px;">Alphabet:</h3>
+                <p
+                  class="ml-3 rounded center-vertical" style="color: #b3cde0; font-family: 'Courier New', Courier, monospace; font-size: 20px;"
+                  id="languageLabel"
+                >
+                  [a,b]
+                </p>
+              </div>
+            </div>
+            <div
+              class="d-flex flex-column align-items-start w-100 h-100 diagram justify-content-start"
             >
+              <svg
+                width="100%"
+                height="40vh"
+                viewBox="0 0 840 360"
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+              >
             <!-- svg CONTAINER with responsive setting-->
               <defs>
                 <marker
