@@ -46,7 +46,7 @@ body {
 }
 
 .hovered > circle {
-  fill: #0062ff !important; /* Fills circle with blue color */
+  fill: #008000 !important; /* Fills circle with blue color */
 }
 
 .hovered > rect {
